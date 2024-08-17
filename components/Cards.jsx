@@ -21,6 +21,12 @@ const Cards = ({ character, createdCharacters, setCreatedCharacters }) => {
         setShowForm(false);
     }; 
 
+    // eliminar personaje
+    const handleDelete = () => {
+        const filterCharacter = createdCharacters.filter(ch => ch.id != character.id)
+        setCreatedCharacters(filterCharacter)
+        localStorage.setItem('createdCharacters', JSON.stringify(filterCharacter));
+    }
     return (
         <>
         {!showForm && (
@@ -46,7 +52,7 @@ const Cards = ({ character, createdCharacters, setCreatedCharacters }) => {
                                 height={29}
                                 />
                         </button>
-                        <button className="relative top-[6px] left-4">
+                        <button className="relative top-[6px] left-4" onClick={() => handleDelete(character.id)}>
                             <Image
                                 src="/remove.svg"
                                 alt="editar"

@@ -1,4 +1,5 @@
 'use client'
+import Spinner from "./Spinner"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Cards from "./Cards"
@@ -68,7 +69,7 @@ const ListCards = () => {
         }
     }
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Spinner />;
     if (error) return <p>{error}</p>;
 
     return (
