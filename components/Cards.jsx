@@ -11,20 +11,21 @@ const Cards = ({ character }) => {
                 rel="noopener noreferrer"
             >
                 <Image
-                    className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
                     src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
                     alt={`${character.name} Thumbnail`}
                     width={300}
                     height={500}
+                    className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] max-h-[200px] min-h-[200px] object-cover"
                     />
-                <h2 className={`mb-3 text-2xl font-semibold`}>
+                <h2 className={`mb-1 mt-2 text-xl font-semibold`}>
                     {character.name}{" "}
                     <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                         -&gt;
                     </span>
                 </h2>
                 <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-                    {character.description}
+                    {character.description !== "" && character.description}
+                    {character.description == "" && <p>Descripción no disponible</p>}
                 </p>
             </a>
         </>

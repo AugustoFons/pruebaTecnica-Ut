@@ -57,42 +57,46 @@ const ListCards = () => {
     if (error) return <p>{error}</p>;
 
     return (
-        <>
-            <button
-                onClick={handleCreate}
-                className="group rounded-lg border px-6 py-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 flex"
-                >
-                <p className="text-2xl font-semibold flex items-center">
-                    Crear Personaje
-                    <span className="transition-transform group-hover:translate-x-1 motion-reduce:transform-none text-6xl ml-3 mb-[7px]">
-                    +
-                    </span>
-                </p>
-            </button>
+        <div className="flex flex-col items-center justify-center">
+            {!showSelect && (
+            <div className="px-8 flex justify-center">
+                <button
+                    onClick={handleCreate}
+                    className="group rounded-lg border px-6 py-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 flex"
+                    >
+                    <p className="text-2xl font-semibold flex items-center">
+                        Crear Personaje
+                        <span className="transition-transform group-hover:translate-x-1 motion-reduce:transform-none text-6xl ml-3 mb-[7px]">
+                        +
+                        </span>
+                    </p>
+                </button>
+            </div>
+            )}
+
 
             {showSelect && (
-                <select onChange={handleSelect}>
-                    <option value="">Seleccione un personaje</option>
+                <select onChange={handleSelect}     
+                className="group rounded-lg bg-transparent w-80 border px-6 py-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 flex"
+                size={10}
+                >
+                    <option value="" className="text-white text-bold bg-gray-900 p-1 m-1 cursor-pointer scroll">
+                        Seleccione un personaje
+                    </option>
                     {characters.map(character => (
-                        <option key={character.id} value={character.id}>
+                        <option key={character.id} value={character.id} className="text-white text-bold hover:bg-gray-900 p-1 m-1 cursor-pointer scroll">
                             {character.name}
                         </option>
                     ))}
                 </select>
             )}
 
-                <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+                <div className="mb-32 my-12 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
                     {createdCharacters.map(character => (
                         <Cards key={character.id} character={character} />
                     ))}                
                 </div>  
-
-{/*             <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-                    {characters.map(character => (
-                        <Cards key={character.id} character={character} />
-                    ))}
-            </div> */}
-        </>
+        </div>
     )
 }
 
