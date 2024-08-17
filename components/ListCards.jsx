@@ -3,17 +3,23 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import Cards from "./Cards"
 
+// configurcion para guardar la solitud a la API por 24hs en local storage
 const CACHE_KEY = 'marvelCharacters';
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000;
+const CREATED_CHARACTERS_KEY = 'createdCharacters';
 
 const ListCards = () => {
-    const [characters, setCharacters] = useState([])
+    const [characters, setCharacters] = useState([]) // estado para actualizar la lista de personajes
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [showSelect, setShowSelect] = useState(false);
-    const [selectedCharacter, setSelectedCharacter] = useState(null);
-    const [createdCharacters, setCreatedCharacters] = useState([]);
+    const [showSelect, setShowSelect] = useState(false); // alterna la vista entre el selector para crear personajes y el boton de crear
+    const [createdCharacters, setCreatedCharacters] = useState([]); // guarda los personajes creados
+
+    // guardar personajes creados en localStorage
+    const saveToLocalStorage = (characters) => {
+        localStorage.setItem(CREATED_CHARACTERS_KEY, JSON.stringify(characters));
+    };
 
     useEffect(() => {
         const fetchCharacters = async () => {
@@ -36,19 +42,28 @@ const ListCards = () => {
                     setLoading(false);
                 }
             }
-        };
+        }
+            const loadCreatedCharacters = () => {
+                const savedCharacters = localStorage.getItem(CREATED_CHARACTERS_KEY);
+                if (savedCharacters) {
+                    setCreatedCharacters(JSON.parse(savedCharacters));
+                }
+            };
         fetchCharacters();
+        loadCreatedCharacters();
     }, []);
+
 
     const handleCreate = () => {
         setShowSelect(true)
     };
 
+    // Al seleccionar un personaje este se guarda en createdCharacters y en el local storage para mostrarlo como tarjeta
     const handleSelect = (e) => {
         const character = characters.find(ch => ch.id == (e.target.value))
-        setSelectedCharacter(character)
         if (character) {
-            setCreatedCharacters(prev => [...prev, character]);
+            setCreatedCharacters([...createdCharacters, character]);
+            saveToLocalStorage(createdCharacters);
             setShowSelect(false);
         }
     }
@@ -74,7 +89,6 @@ const ListCards = () => {
             </div>
             )}
 
-
             {showSelect && (
                 <select onChange={handleSelect}     
                 className="group rounded-lg bg-transparent w-80 border px-6 py-3 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 flex"
@@ -91,11 +105,16 @@ const ListCards = () => {
                 </select>
             )}
 
-                <div className="mb-32 my-12 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-                    {createdCharacters.map(character => (
-                        <Cards key={character.id} character={character} />
-                    ))}                
-                </div>  
+            <div className="mb-32 my-12 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+                {createdCharacters.map(character => (
+                    <Cards 
+                        key={character.id} 
+                        character={character} 
+                        setCreatedCharacters={setCreatedCharacters}
+                        createdCharacters={createdCharacters}
+                    />
+                ))}                
+            </div>  
         </div>
     )
 }
