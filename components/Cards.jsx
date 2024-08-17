@@ -95,7 +95,7 @@ const Cards = ({ character, createdCharacters, setCreatedCharacters }) => {
                     value={`${editedCharacter.thumbnail.path || ''}.${editedCharacter.thumbnail.extension || ''}`} 
                     onChange={(e) => {
                         const value = e.target.value;
-                        const lastDotIndex = value.lastIndexOf('.'); 
+                        const lastDotIndex = value.lastIndexOf('.'); /* lastDotIndex guarda la posición del ultimo punto para separar el path de la imagen, de la extension, respetando la estructura de la api de marvel */
                         const path = lastDotIndex !== -1 ? value.substring(0, lastDotIndex) : value;
                         const extension = lastDotIndex !== -1 ? value.substring(lastDotIndex + 1) : '';
                         setEditedCharacter(prevState => ({
