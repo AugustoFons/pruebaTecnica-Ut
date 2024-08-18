@@ -33,7 +33,7 @@ const ListCards = () => {
                 setLoading(false);
             } else {
                 try {
-                    const response = await axios.get('/api/marvel');
+                    const response = await axios.get('/api/marvel'); //en la carpeta /api/marvel esta el archivo route.js con el fetch a la api de marvel 
                     setCharacters(response.data);
                     localStorage.setItem(CACHE_KEY, JSON.stringify(response.data));
                     localStorage.setItem(`${CACHE_KEY}_timestamp`, Date.now());
