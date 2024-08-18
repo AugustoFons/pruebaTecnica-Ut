@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import { useState } from "react";
 
@@ -115,7 +116,12 @@ const Cards = ({ character, createdCharacters, setCreatedCharacters }) => {
                     }}                    
                     className="block w-full px-3 py-2 text-white bg-transparent font-bold border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-slate-600 focus:border-slate-500 sm:text-sm"
                     />
-                <button onClick={handleSaveEdit}>Guardar Cambios</button>
+                <button 
+                    onClick={handleSaveEdit}
+                    className="border-2 border-white rounded-sm my-5 py-3 px-4 bg-transparent hover:bg-black font-bold mx-auto block"
+                    >
+                    Guardar
+                </button>
             </div>
         )}
         </>

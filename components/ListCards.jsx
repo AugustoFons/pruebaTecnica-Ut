@@ -63,11 +63,14 @@ const ListCards = () => {
     const handleSelect = (e) => {
         const character = characters.find(ch => ch.id == (e.target.value))
         if (character) {
-            setCreatedCharacters([...createdCharacters, character]);
-            saveToLocalStorage(createdCharacters);
-            setShowSelect(false);
-        }
+            setCreatedCharacters(prevCharacters => {
+                const newCharacters = [...prevCharacters, character];
+                saveToLocalStorage(newCharacters);
+                return newCharacters;
+            });
+        setShowSelect(false);
     }
+}
 
     if (loading) return <Spinner />;
     if (error) return <p>{error}</p>;
