@@ -8,8 +8,8 @@ export default function Home() {
       <div className="flex py-0 place-items-center before:absolute before:h-[200px] before:w-[380px] before:-translate-x-1/3 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[100px] after:w-[220px] after:translate-x-1/4 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-red-700 before:dark:opacity-10 after:dark:from-red-900 after:dark:via-[#ff0101] after:dark:opacity-40 before:lg:h-[260px] z-[-1]">
         <Image
           className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
-          src="/marv.png"
-          alt="Next.js Logo"
+          src="/marvel.webp"
+          alt="marvel Logo"
           width={150}
           height={50}
           quality={80}
